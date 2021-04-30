@@ -33,7 +33,12 @@ app_license = "MIT"
 # page_js = {"page" : "public/js/file.js"}
 
 # include js in doctype views
-# doctype_js = {"doctype" : "public/js/doctype.js"}
+
+doctype_js = {
+	"Sales Invoice" : "public/js/sales_invoice.js"
+}
+
+
 # doctype_list_js = {"doctype" : "public/js/doctype_list.js"}
 # doctype_tree_js = {"doctype" : "public/js/doctype_tree.js"}
 # doctype_calendar_js = {"doctype" : "public/js/doctype_calendar.js"}
@@ -91,13 +96,74 @@ app_license = "MIT"
 # ---------------
 # Hook on document methods and events
 
-# doc_events = {
-# 	"*": {
-# 		"on_update": "method",
-# 		"on_cancel": "method",
-# 		"on_trash": "method"
-#	}
-# }
+
+doc_events = {
+	"Project": {
+		"validate": "project_invoice.project_invoice.invoice.createItem",
+		"on_update": "project_invoice.project_invoice.invoice.UpdatePrice"
+	},
+	"Delivery Note": {
+                "on_submit": "project_invoice.project_invoice.invoice.updateMaterialCost",
+		"on_cancel": "project_invoice.project_invoice.invoice.revertMaterialCost"
+        },
+	"Sales Invoice": {
+                "on_submit": "project_invoice.project_invoice.invoice.UpdateProjectStatus",
+                "on_cancel": "project_invoice.project_invoice.invoice.RevertProjectStatus"
+        },
+	"Task": {
+		"after_insert": "project_invoice.project_invoice.invoice.UpdateTaskCost",
+                "on_update": "project_invoice.project_invoice.invoice.UpdateTaskCost"
+        },
+	"Timesheet": {
+                "on_submit": "project_invoice.project_invoice.invoice.UpdateLabourCost"
+        }
+}
+
+fixtures = [
+    {
+	"doctype": "Custom Field",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+			"Sales Invoice-invoice_type",
+			"Project-washing_and_material_costing",
+			"Project-washing_cost",
+			"Project-column_break_42",
+			"Project-material_cost",
+			"Sales Invoice-project_details",
+			"Sales Invoice-project_table",
+			"Sales Invoice Item-section_break_33",
+			"Sales Invoice Item-labour",
+			"Sales Invoice Item-materiel",
+			"Sales Invoice Item-washing",
+			"Sales Invoice Item-count_rate",
+			"Item-is_project",
+			"Sales Invoice-total_labour",
+			"Sales Invoice-total_washing",
+			"Sales Invoice-total_material",
+			"Task-total_task_cost",
+			"Project-column_break_44",
+			"Project-labour_cost"
+                ]
+            ]
+        ]
+ },
+ {
+	"doctype": "Property Setter",
+        "filters": [
+            [
+                "name",
+                "in",
+                [
+			"Sales Invoice-items_section-depends_on",
+			"Project-total_billable_amount-default"
+                ]
+            ]
+        ]
+ }
+]
 
 # Scheduled Tasks
 # ---------------

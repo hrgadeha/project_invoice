@@ -1,0 +1,80 @@
+{
+ "actions": [],
+ "creation": "2021-04-28 14:41:55.776699",
+ "doctype": "DocType",
+ "editable_grid": 1,
+ "engine": "InnoDB",
+ "field_order": [
+  "project_code",
+  "project_description",
+  "labour",
+  "material",
+  "washing",
+  "total_cost"
+ ],
+ "fields": [
+  {
+   "fetch_from": "project_code.project_name",
+   "fieldname": "project_description",
+   "fieldtype": "Data",
+   "label": "Project Description",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "project_code.total_billable_amount",
+   "fieldname": "labour",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Labour",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "project_code.material_cost",
+   "fieldname": "material",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Material",
+   "read_only": 1
+  },
+  {
+   "columns": 1,
+   "fetch_from": "project_code.washing_cost",
+   "fieldname": "washing",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Washing",
+   "read_only": 1
+  },
+  {
+   "default": "0",
+   "fieldname": "total_cost",
+   "fieldtype": "Currency",
+   "in_list_view": 1,
+   "label": "Total Cost",
+   "read_only": 1
+  },
+  {
+   "columns": 3,
+   "fieldname": "project_code",
+   "fieldtype": "Link",
+   "in_list_view": 1,
+   "label": "Project",
+   "options": "Project",
+   "reqd": 1
+  }
+ ],
+ "index_web_pages_for_search": 1,
+ "istable": 1,
+ "links": [],
+ "modified": "2021-04-28 22:32:58.680751",
+ "modified_by": "Administrator",
+ "module": "Project Invoice",
+ "name": "Project Table",
+ "owner": "Administrator",
+ "permissions": [],
+ "sort_field": "modified",
+ "sort_order": "DESC",
+ "track_changes": 1
+}
