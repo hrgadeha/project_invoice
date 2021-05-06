@@ -46,7 +46,7 @@ callback:function(r){
 frappe.ui.form.on("Project Table", {
   "project_table_remove": function(frm,cdt,cdn) {
 	  frm.clear_table("items");
-      frm.clear_table("timesheets");	    
+      	  frm.clear_table("timesheets");
       $.each(frm.doc.project_table, function(idx, d){
 	if(d.project_code){
     frappe.call({
@@ -118,4 +118,15 @@ cur_frm.set_query("project_code", "project_table", function(doc, cdt, cdn) {
 			['Project', 'status', '=', "Open"]
 		]
 	};
+});
+
+frappe.ui.form.on('Project Table', {
+	project_table_remove(frm,cdt,cdn) {
+	    var d = locals[cdt][cdn];
+		var tbl = frm.doc.items || [];
+        var i = tbl.length;
+            console.log(i);
+            cur_frm.get_field("items").grid.grid_rows[i].remove();
+            cur_frm.refresh();
+	}
 });
